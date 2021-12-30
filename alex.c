@@ -87,13 +87,13 @@ int alex_getLN() {
 
 
 void store_add_def(char *funame, int line, char *ipname){
-
+    printf("Store_add_def, %s, %d", funame, line);
 }
 
 void store_add_proto(char *funame, int line, char *ipname){
-
+    printf("Store_add_proto, %s, %d", funame, line);
 }
 
 void store_add_call(char *funame, int line, char *ipname){
-
+    printf("Store_add_call, %s, %d", funame, line);
 }
