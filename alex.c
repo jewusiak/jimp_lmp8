@@ -2,6 +2,7 @@
 
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 
 static int ln = 0;
 static char ident[256];
@@ -55,7 +56,10 @@ lexem_t alex_nextLexem(void) {
             while (isalnum(c = fgetc(ci)))
                 ident[i++] = c;
             ident[i] = '\0';
-            return isKeyword(ident) ? OTHER : IDENT;
+            //dodano:
+            if(ungetc(c, ci)==EOF)
+                exit(-50);
+            return isKeyword(ident)==1 ? OTHER : IDENT;
         } else if (c == '"') {
             /* Uwaga: tu trzeba jeszcze poprawic obsluge nowej linii w trakcie napisu
                i \\ w napisie
@@ -64,6 +68,8 @@ lexem_t alex_nextLexem(void) {
             while ((c = fgetc(ci)) != EOF && c != '"' && cp == '\\') {
                 cp = c;
             }
+            if(c!=EOF)
+                ungetc(c, ci);
             return c == EOF ? EOFILE : OTHER;
         } else if (c == '/') {
             /* moze byc komentarz */
@@ -87,13 +93,13 @@ int alex_getLN() {
 
 
 void store_add_def(char *funame, int line, char *ipname){
-    printf("Store_add_def, %s, %d", funame, line);
+    printf("Store_add_def, %s, %d\n", funame, line);
 }
 
 void store_add_proto(char *funame, int line, char *ipname){
-    printf("Store_add_proto, %s, %d", funame, line);
+    printf("Store_add_proto, %s, %d\n", funame, line);
 }
 
 void store_add_call(char *funame, int line, char *ipname){
-    printf("Store_add_call, %s, %d", funame, line);
+    printf("Store_add_call, %s, %d\n", funame, line);
 }
