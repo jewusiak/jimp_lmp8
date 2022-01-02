@@ -19,7 +19,7 @@ void put_on_fun_stack(int par_level, char *funame) {
         stos.data = realloc(stos.data, stos.size * sizeof *stos.data);
     stos.data[stos.size - 1].funame = malloc((strlen(funame) + 1) * sizeof *funame);
     stos.data[stos.size - 1].par_level = par_level;
-    stos.data[stos.size - 1].funame = funame;
+    strcpy(stos.data[stos.size - 1].funame, funame);
 }
 
 char *get_from_fun_stack(void) {
