@@ -20,7 +20,7 @@ typedef struct{
 typedef struct{
 	dat *data;
 	int size;
-}
+}store;
 
 
 void alex_init4file(FILE *);  // zacznij czytać nowy plik
