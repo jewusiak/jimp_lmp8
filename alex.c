@@ -37,6 +37,7 @@ int isKeyword(char *str) {
 }
 
 
+
 lexem_t alex_nextLexem(void) {
     int c;
     while ((c = fgetc(ci)) != EOF) {
@@ -120,15 +121,61 @@ int alex_getLN() {
     return ln;
 }
 
-
+store dane;
 void store_add_def(char *funame, int line, char *ipname) {
-    printf("Store_add_def, %s, %d\n", funame, line);
-}
+
+        if(dane.size++==0)
+                dane.data=malloc(sizeof *dane.data);
+        else
+                dane.data=realloc(dane.data, dane.size * sizeof *dane.data);
+
+        dane.data[dane.size-1].type=malloc( 4*sizeof(char));
+        strcpy(dane.data[dane.size-1].type,"def");
+
+        dane.data[dane.size-1].funame= malloc((strlen(funame)+1)*sizeof(*funame));
+        strcpy(dane.data[dane.size-1].funame,funame);
+
+        dane.data[dane.size-1].line=line;
+
+        dane.data[dane.size-1].ipname= malloc((strlen(ipname)+1)*sizeof(*ipname));
+        strcpy(dane.data[dane.size-1].ipname,ipname);
+}      	    
+
+
 
 void store_add_proto(char *funame, int line, char *ipname) {
-    printf("Store_add_proto, %s, %d\n", funame, line);
+
+        if(dane.size++==0)
+                dane.data=malloc(sizeof *dane.data);
+        else
+                dane.data=realloc(dane.data, dane.size * sizeof *dane.data);
+
+        dane.data[dane.size-1].type=malloc( 6*sizeof(char));
+        strcpy(dane.data[dane.size-1].type,"proto");
+
+        dane.data[dane.size-1].funame= malloc((strlen(funame)+1)*sizeof(*funame));
+        strcpy(dane.data[dane.size-1].funame,funame);
+
+        dane.data[dane.size-1].linie=line;
+
+        dane.data[dane.size-1].ipname= malloc((strlen(ipname)+1)*sizeof(*ipname));
+        strcpy(dane.data[dane.size-1].ipname,ipname);
 }
 
 void store_add_call(char *funame, int line, char *ipname) {
-    printf("Store_add_call, %s, %d\n", funame, line);
+        if(dane.size++==0)
+                dane.data=malloc(sizeof *dane.data);
+        else
+                dane.data=realloc(dane.data, dane.size * sizeof *dane.data);
+
+        dane.data[dane.size-1].type=malloc( 5*sizeof(char));
+        strcpy(dane.data[dane.size-1].type,"call");
+
+        dane.data[dane.size-1].funame= malloc((strlen(funame)+1)*sizeof(*funame));
+        strcpy(dane.data[dane.size-1].funame,funame);
+
+        dane.data[dane.size-1].linie=line;
+
+        dane.data[dane.size-1].ipname= malloc((strlen(ipname)+1)*sizeof(*ipname));
+        strcpy(dane.data[dane.size-1].ipname,ipname);
 }
