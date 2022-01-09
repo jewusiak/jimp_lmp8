@@ -3,14 +3,13 @@
 
 typedef struct {
     int par_level;
-    char* funame;
+    char *funame;
 } fun_t;
 
 typedef struct {
-  fun_t *data;
-  int size;
+    fun_t *data;
+    int size;
 } fun_db;
-
 
 
 int top_of_funstack(void);  // zwraca par_level - "zagłębienie nawiasowe" przechowywane na szczycie

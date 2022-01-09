@@ -24,7 +24,7 @@ void put_on_fun_stack(int par_level, char *funame) {
 
 char *get_from_fun_stack(void) {
     if (stos.size == 0) {
-        fprintf(stderr, "Próba dostania się do stosu o indeksie <0!\n");
+        fprintf(stderr, "Proba dostania sie do stosu o indeksie <0!\n");
         exit(50);
     }
 

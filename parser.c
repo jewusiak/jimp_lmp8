@@ -9,9 +9,9 @@ void analizatorSkladni(char *inpname) {                               // przetwa
 
     FILE *in = fopen(inpname, "r");
 
-    if(in==NULL){
+    if (in == NULL) {
         fprintf(stderr, "Blad otwierania pliku! (%s)\n", inpname);
-        exit (1);
+        exit(1);
     }
     int nbra = 0;   // bilans nawiasów klamrowych {}
     int npar = 0;   // bilans nawiasów zwykłych ()
@@ -46,21 +46,23 @@ void analizatorSkladni(char *inpname) {                               // przetwa
                     // jeśli tak, to właśnie wczytany nawias jest domknięciem nawiasu otwartego
                     // za identyfikatorem znajdującym się na wierzchołku stosu
                     lexem_t nlex = alex_nextLexem();     // bierzemy nast leksem
+
                     if (nlex == OPEBRA) {   // nast. leksem to klamra a więc mamy do czynienia z def. funkcji
 
                         store_add_def(get_from_fun_stack(), alex_getLN(), inpname);
                         nbra++;
-                    }
-                    else if (nbra == 0) {   // nast. leksem to nie { i jesteśmy poza blokami - to musi być prototyp
+                    } else if (nbra == 0) {   // nast. leksem to nie { i jesteśmy poza blokami - to musi być prototyp
                         store_add_proto(get_from_fun_stack(), alex_getLN(), inpname);
-                    }
-                    else {                 // nast. leksem to nie { i jesteśmy wewnątrz bloku - to zapewne wywołanie
+                    } else {                 // nast. leksem to nie { i jesteśmy wewnątrz bloku - to zapewne wywołanie
                         store_add_call(get_from_fun_stack(), alex_getLN(), inpname);
-                    }
 
+                    }
+                    lex = nlex;
                 }
 
                 npar--;
+
+                continue;
             }
                 break;
             case OPEBRA:
